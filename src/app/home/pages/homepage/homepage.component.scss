@@ -1,0 +1,39 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 90vh;
+  min-width: 100%;
+  align-items: center;
+
+  .content{
+    margin: auto;
+
+    .title{
+      font-size: 5rem;
+      color: black;
+      font-weight: 600;
+    }
+
+    .blue-font {
+      color: #4285f4;
+    }
+
+    .red-font{
+      color: #ea4335;
+    }
+
+    .yellow-font {
+      color: #fbbc04;
+    }
+
+    .green-font {
+      color: #34a853;
+    }
+
+    .city{
+      text-align: center;
+      font-size: 3rem;
+    }
+  }
+}
