@@ -1,5 +1,6 @@
-<ng-container>
+<div>
   <mat-toolbar
+    role="heading"
     class="flex mx-auto py-6 w-full shadow-sm"
     style="background-color: #fff"
   >
@@ -11,19 +12,20 @@
         <span class="yellow-font">v</span><span class="green-font">Fest</span>
         <span class="text-lg text-slate-500"> Medan</span>
       </div>
-
     </div>
   </mat-toolbar>
   <div class="container lg:mx-auto md:mx-auto min-w-0">
     <router-outlet></router-outlet>
   </div>
-</ng-container>
+</div>
 
-<mat-progress-spinner class="center"
+<mat-progress-spinner
 *ngIf="loading"
-[diameter]="80"
-[mode]="'indeterminate'"
-[color]="color"
-[strokeWidth]="6"
-[value]="100">
+  class="center"
+  diameter="80"
+  [mode]="'indeterminate'"
+  color="primary"
+  strokeWidth="6"
+  value="100"
+>
 </mat-progress-spinner>

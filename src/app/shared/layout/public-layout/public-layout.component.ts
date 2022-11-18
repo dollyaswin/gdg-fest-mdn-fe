@@ -43,9 +43,8 @@ export class PublicLayoutComponent implements OnInit {
 
   title = "Home"
 
-  loading: boolean = false;
+  loading = false;
 
-  Subscription: Subscription;
   constructor(
     private responsive: BreakpointObserver,
     private ls: LayoutService,
@@ -55,17 +54,12 @@ export class PublicLayoutComponent implements OnInit {
     private snackbar: MatSnackBar,
 
   ) {
-    this.Subscription = ls.getLoading((bol) => (this.loading = bol));
   }
 
   ngOnInit(): void {
-    this.router.events.pipe(filter((e): boolean => e instanceof NavigationEnd))
-    .subscribe((): void => {
-      let deepest = this.route.snapshot
 
-      while (!!deepest.firstChild) deepest = deepest.firstChild
-      this.title = deepest.data['title'] || 'DevFest'
-      this.ls.setTitle(`DevFest - ${this.title}`)
+    this.ls.onLoading((val) => {
+      this.loading = val
     })
 
 
@@ -78,15 +72,11 @@ export class PublicLayoutComponent implements OnInit {
       this.snackbar.open(val.message, 'OK', {
         panelClass: val.color,
         politeness: 'polite',
-        verticalPosition: 'top',
+        verticalPosition: 'bottom',
         horizontalPosition: 'center',
         duration: val.duration || 3000,
       })
     })
-  }
-
-  ngOnDestroy() {
-    this.Subscription.unsubscribe();
   }
 
 }

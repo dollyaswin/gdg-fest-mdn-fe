@@ -4,6 +4,7 @@ import { LayoutService } from 'src/app/shared/layout/layout.service';
 import { HomepageService } from '../../homepage.service';
 import { Book } from '../../homepage.type';
 import { AddBookComponent } from '../add-book/add-book.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-homepage',
@@ -18,19 +19,25 @@ export class HomepageComponent implements OnInit {
   constructor(
     private hs: HomepageService,
     private ls: LayoutService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private ts: Title
   ) {}
 
   ngOnInit(): void {
+    this.ts.setTitle('DevFest - Home')
     this.getBookList();
 
 
   }
 
+  /**
+   * Open modal add book
+   * @param bookData
+   */
   createBook(bookData?:Book) {
     this.dialog.open(AddBookComponent, {
       data: bookData,
-      width: '50vw',
+      width: '100%',
       height: 'auto',
       disableClose: true,
     }).afterClosed().subscribe((resp) => {
@@ -51,6 +58,26 @@ export class HomepageComponent implements OnInit {
       }
     } catch (error) {
       this.ls.catchError(error);
+      this.ls.setLoading(false)
+    }
+  }
+
+  /**
+   * Delete book by ID
+   * @param id
+   */
+  async deleteBook(id: number){
+    try {
+      this.ls.setLoading(true)
+      const r = await this.hs.deleteBook(id)
+      this.ls.setNotification({
+        message: r.body as string,
+        color: 'accent'
+      })
+      if(r.status == 200) this.getBookList()
+    } catch (err) {
+      this.ls.catchError(err)
+    } finally {
       this.ls.setLoading(false)
     }
   }

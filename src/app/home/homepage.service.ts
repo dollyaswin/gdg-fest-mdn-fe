@@ -44,10 +44,9 @@ export class HomepageService {
    * @param id
    * @param data
    */
-  public updateBook(data: Partial<AddNewBook>): Promise<Book> {
-    const { id, ...others} = data
+  public updateBook(data: AddNewBook, id: number): Promise<Book> {
     return lastValueFrom(
-      this.http.put<Book>(`/v1/book/${id}`, others)
+      this.http.put<Book>(`/v1/book/${id}`, data)
     );
   }
 
@@ -56,7 +55,7 @@ export class HomepageService {
    * @param id
    */
   public deleteBook(id: number) {
-    return this.http.delete(`/api/v1/book/${id}`);
+    return lastValueFrom(this.http.delete(`/v1/book/${id}`, { observe: 'response'}));
   }
 }
 

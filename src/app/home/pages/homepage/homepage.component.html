@@ -1,7 +1,7 @@
 <div class="flex justify-between items-center">
   <div class="text-lg font-medium text-slate-700 py-3">Book lists</div>
   <button mat-stroked-button type="button" color="primary" (click)="createBook()">
-    <span class="green-font">Add book</span>
+    <span class="text-slate-700">Add book</span>
   </button>
 </div>
 <div
@@ -18,12 +18,13 @@
       [createdAt]="book.created_at"
       [updatedAt]="book.updated_at"
       (editData)="createBook(book)"
+      (deleteData)="deleteBook(book.id)"
     ></app-card>
   </div>
 </div>
 
 <ng-template #noData>
-  <div class="flex flex-col mx-auto space-y-4 justify-center h-[50vh] items-center font-thin text-gray-400">
+  <div class="flex flex-col mx-auto space-y-4 justify-center h-[50vh] items-center font-thin text-gray-100" [ngClass]="!!bookList ? 'text-gray-100' : ''">
     <div class="">
       <mat-icon class="text-9xl">create_new_folder</mat-icon>
       <p class="text-xl">Book data empty</p>

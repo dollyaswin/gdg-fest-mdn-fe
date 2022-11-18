@@ -21,19 +21,28 @@ export class LayoutService {
 
   private notifObs = new Subject<Notification>();
 
+  private loadingObs = new Subject<boolean>()
+
+
   loading = new BehaviorSubject<boolean>(false);
 
   /**
    * set loading status
    * @param v loading
    */
-  setLoading(bol: boolean) {
-    this.loading.next(bol);
+   public setLoading(v: boolean): void {
+    this.loadingObs.next(v)
   }
 
-  getLoading(sub: (bol: boolean) => void) {
-    return this.loading.subscribe(sub);
+ /**
+   * attach a listener to loading changes
+   * @param cb callback when loading changes
+   * @returns
+   */
+  public onLoading(cb: (v: boolean) => any): Subscription {
+    return this.loadingObs.subscribe(cb)
   }
+
 
   /**
    * set the page title and browser title
@@ -58,7 +67,6 @@ export class LayoutService {
    * @param e
    */
   public catchError(e: any): void {
-    console.log(`e is:`, e);
     const message = e.error.detail ?? e.message;
     this.notifObs.next({ message, color: 'warn' });
   }

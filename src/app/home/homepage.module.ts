@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { PublicLayoutModule } from '../shared/layout/public-layout/public-layout.module';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomepageComponent,
+        data: { title: 'Home'}
       },
     ],
   },
@@ -46,6 +48,7 @@ const routes: Routes = [
     MatToolbarModule,
     MatButtonModule,
     MatDialogModule,
+    PublicLayoutModule,
 
     MatFormFieldModule,
   ],

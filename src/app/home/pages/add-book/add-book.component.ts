@@ -8,14 +8,16 @@ import { Book } from '../../homepage.type';
 @Component({
   selector: 'app-add-book',
   template: `
-    <div class="flex justify-between items-center mx-auto text-slate-800">
+    <div class="flex justify-between items-center lg:mx-auto md:mx-auto sm:w-full text-slate-800">
       <span class="text-base font-medium ">{{ title }}</span>
       <a mat-icon-button [matDialogClose]="true">
         <mat-icon class="text-base font-medium">close</mat-icon>
       </a>
     </div>
     <form [formGroup]="newBook" (ngSubmit)="saveBook()">
-      <div class="grid grid-cols-2 gap-4">
+      <div
+        class="mt-4 grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-y-2 gap-x-4"
+      >
         <mat-form-field appearance="legacy" class="w-full">
           <mat-label>Title</mat-label>
           <input matInput formControlName="title" />
@@ -64,7 +66,7 @@ export class AddBookComponent implements OnInit {
   isEdit: boolean = false;
   currentId!: number;
 
-  newBook: FormGroup;
+  newBook!: FormGroup;
 
   constructor(
     private ls: LayoutService,
@@ -72,11 +74,11 @@ export class AddBookComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) private dialogData: Book,
     private dialog: MatDialog
   ) {
-    if(dialogData !== undefined && dialogData !== null) {
-      this.isEdit = true
+    if (dialogData !== undefined && dialogData !== null) {
+      this.isEdit = true;
       this.title = 'Update book';
-      this.currentId = dialogData.id
-      this.initCurrentValue()
+      this.currentId = dialogData.id;
+      // this.initCurrentValue()
     }
 
     this.newBook = new FormGroup({
@@ -85,37 +87,46 @@ export class AddBookComponent implements OnInit {
       isbn: new FormControl(null),
       publisher: new FormControl(null, Validators.required),
     });
+
+    if (this.currentId) this.initCurrentValue();
   }
 
   ngOnInit(): void {}
 
+  /**
+   * Send data to server
+   */
   public async saveBook(): Promise<void> {
     try {
       this.ls.setLoading(true);
       const data = this.newBook.value;
       this.newBook.disable();
-      const { title } = await (this.isEdit ? this.homeService.updateBook(data) : this.homeService.createNewBook(data))
-      console.log('d', title);
+      const { title } = await (this.isEdit
+        ? this.homeService.updateBook(data, this.currentId)
+        : this.homeService.createNewBook(data));
       this.ls.setNotification({
-        message: `Book '${title}' successfully ${this.isEdit ? 'updated' : 'created'}`,
-        color: 'accent'
-      })
-      this.dialog.closeAll()
+        message: `Book '${title}' successfully ${
+          this.isEdit ? 'updated' : 'created'
+        }`,
+        color: 'accent',
+      });
+      this.dialog.closeAll();
     } catch (error) {
       this.ls.catchError(error);
-      this.newBook.enable()
+      this.newBook.enable();
     } finally {
       this.ls.setLoading(false);
     }
   }
 
-  initCurrentValue(){
-    const r = this.dialogData
+  /** store value to form */
+  initCurrentValue() {
+    const r = this.dialogData;
     this.newBook.patchValue({
       title: r.title,
       author: r.author,
       isbn: r.isbn,
       publisher: r.publisher,
-    })
+    });
   }
 }

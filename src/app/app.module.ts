@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,7 @@ import { PublicLayoutModule } from './shared/layout/public-layout/public-layout.
     PublicLayoutModule
 
   ],
+  providers: [Title],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
