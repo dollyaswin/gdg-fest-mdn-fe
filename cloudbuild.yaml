@@ -6,6 +6,7 @@ steps:
   - '-c'
   - |
     set -x && \
-    gcloud compute ssh --zone=${_ENV_ZONE} ${_ENV_INST_USER}@${_ENV_INST_NAME} --command='export APP_PATH=${_ENV_APP_PATH}; cd ${_ENV_PULL_PATH}; git pull origin ${_ENV_BRANCH}; ./deploy.sh'
+    gcloud compute ssh --zone=${_ENV_ZONE} ${_ENV_INST_USER}@${_ENV_INST_NAME} \
+    --command='export APP_PATH=${_ENV_APP_PATH};  export NODE_PATH=${_ENV_NODE_PATH}; cd ${_ENV_PULL_PATH}; git pull origin ${_ENV_BRANCH}; ./deploy.sh'
 options:
   logging: CLOUD_LOGGING_ONLY
