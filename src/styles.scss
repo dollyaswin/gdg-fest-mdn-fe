@@ -9,14 +9,21 @@
 // Be sure that you only ever include this mixin once!
 @include mat.core();
 
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $gdg-fest-mdn-fe-primary: mat.define-palette(mat.$indigo-palette);
-$gdg-fest-mdn-fe-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$gdg-fest-mdn-fe-accent: mat.define-palette(mat.$blue-grey-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $gdg-fest-mdn-fe-warn: mat.define-palette(mat.$red-palette);
+$gdg-fest-mdn-fe-white: mat.define-palette(mat.$gray-palette, 50);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
@@ -25,6 +32,7 @@ $gdg-fest-mdn-fe-theme: mat.define-light-theme((
     primary: $gdg-fest-mdn-fe-primary,
     accent: $gdg-fest-mdn-fe-accent,
     warn: $gdg-fest-mdn-fe-warn,
+    whites: $gdg-fest-mdn-fe-white
   )
 ));
 
@@ -37,3 +45,60 @@ $gdg-fest-mdn-fe-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.wrapper {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .content{
+    margin: auto;
+
+    .title{
+      font-size: 5rem;
+      color: black;
+      font-weight: 600;
+    }
+
+    .city{
+      text-align: center;
+      font-size: 3rem;
+    }
+  }
+}
+
+.blue-font {
+  color: #4285f4;
+}
+
+.red-font{
+  color: #ea4335;
+}
+
+.yellow-font {
+  color: #fbbc04;
+}
+
+.green-font {
+  color: #34a853;
+}
+
+.logo{
+  font-size: 26px;
+  font-weight: 500;
+}
+
+
+//for debuging
+.debug {
+  border: 1px dashed red;
+}
