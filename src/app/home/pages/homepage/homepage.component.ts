@@ -70,11 +70,13 @@ export class HomepageComponent implements OnInit {
     try {
       this.ls.setLoading(true)
       const r = await this.hs.deleteBook(id)
-      this.ls.setNotification({
-        message: r.body as string,
-        color: 'accent'
-      })
-      if(r.status == 200) this.getBookList()
+      if(r.status == 204) {
+        this.ls.setNotification({
+          message: "Removed Successfully",
+          color: 'accent'
+        })
+        this.getBookList()
+      }
     } catch (err) {
       this.ls.catchError(err)
     } finally {
