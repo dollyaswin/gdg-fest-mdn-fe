@@ -73,15 +73,13 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "proxyConfig": "./proxy.conf.json"
-          },
           "configurations": {
             "production": {
               "browserTarget": "gdg-fest-mdn-fe:build:production"
             },
             "development": {
-              "browserTarget": "gdg-fest-mdn-fe:build:development"
+              "browserTarget": "gdg-fest-mdn-fe:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

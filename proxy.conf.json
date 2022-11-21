@@ -1,7 +1,7 @@
 {
-  "/v1": {
+  "/v1/*": {
     "target": "https://api.dev.gdg.xtend.my.id",
-    "secure": true,
+    "secure": false,
     "changeOrigin": true
   }
 }
