@@ -1,4 +1,3 @@
-import { filter, Subscription } from 'rxjs';
 import { LayoutService } from 'src/app/shared/layout/layout.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnDestroy, OnInit } from '@angular/core';
@@ -6,6 +5,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AddBookComponent } from 'src/app/home/pages/add-book/add-book.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AsyncAccessor } from '../../utils';
 @Component({
   selector: 'app-public-layout',
   templateUrl: './public-layout.component.html',
@@ -41,8 +41,9 @@ export class PublicLayoutComponent implements OnInit {
   displayProgressSpinner = false;
   spinnerWithoutBackdrop = true;
 
-  title = "Home"
+  title = 'Home';
 
+  @AsyncAccessor()
   loading = false;
 
   constructor(
@@ -51,22 +52,13 @@ export class PublicLayoutComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private snackbar: MatSnackBar,
-
-  ) {
-  }
+    private snackbar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-
     this.ls.onLoading((val) => {
-      this.loading = val
-    })
-
-
-    this.ls.onTitle((val) => {
-      this.title = val
-      this.ls.setTitle(`DevFest - ${val}`)
-    })
+      this.loading = val;
+    });
 
     this.ls.onNotification((val) => {
       this.snackbar.open(val.message, 'OK', {
@@ -75,8 +67,7 @@ export class PublicLayoutComponent implements OnInit {
         verticalPosition: 'bottom',
         horizontalPosition: 'center',
         duration: val.duration || 3000,
-      })
-    })
+      });
+    });
   }
-
 }

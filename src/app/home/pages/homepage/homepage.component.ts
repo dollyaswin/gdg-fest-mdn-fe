@@ -24,7 +24,7 @@ export class HomepageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ts.setTitle('DevFest - Home')
+    this.ts.setTitle('Dev Fest Medan 2022 | Home')
     this.getBookList();
 
 
