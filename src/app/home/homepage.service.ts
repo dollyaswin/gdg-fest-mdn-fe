@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AddNewBook, Book } from './homepage.type';
 import { lastValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 /**
@@ -10,6 +11,7 @@ import { lastValueFrom } from 'rxjs';
  * email: rikijoniiskandar97@gmail.com
  *
  */
+
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +27,7 @@ export class HomepageService {
    */
   public fetchBook(): Promise<any> {
     return lastValueFrom(
-      this.http.get<Book[]>(`/v1/book`, {
+      this.http.get<Book[]>(`${environment.apiUrl}/v1/book`, {
         observe: 'response',
       })
     );
@@ -36,7 +38,7 @@ export class HomepageService {
    * @param data typeof AddNewBook
    */
   public createNewBook(data: AddNewBook): Promise<Book> {
-    return lastValueFrom(this.http.post<Book>(`/v1/book`, data));
+    return lastValueFrom(this.http.post<Book>(`${environment.apiUrl}/v1/book`, data));
   }
 
   /**
@@ -46,7 +48,7 @@ export class HomepageService {
    */
   public updateBook(data: AddNewBook, id: number): Promise<Book> {
     return lastValueFrom(
-      this.http.put<Book>(`/v1/book/${id}`, data)
+      this.http.put<Book>(`${environment.apiUrl}/v1/book/${id}`, data)
     );
   }
 
@@ -55,7 +57,7 @@ export class HomepageService {
    * @param id
    */
   public deleteBook(id: number) {
-    return lastValueFrom(this.http.delete(`/v1/book/${id}`, { observe: 'response'}));
+    return lastValueFrom(this.http.delete(`${environment.apiUrl}/v1/book/${id}`, { observe: 'response'}));
   }
 }
 
