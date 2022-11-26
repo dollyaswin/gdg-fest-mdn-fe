@@ -1,0 +1,29 @@
+<div>
+  <mat-toolbar
+    role="heading"
+    class="flex mx-auto py-6 w-full shadow-sm"
+    style="background-color: #fff"
+  >
+    <div
+      class="logo lg:mx-auto md:mx-auto lg:container py-4 flex justify-between items-center w-full"
+    >
+      <div class="w-full blue-font" routerLink="/">
+        <span class="text-xl font-medium leading-relaxed"><span class="text-3xl">D</span>ev Fest Medan 2022</span>
+      </div>
+    </div>
+  </mat-toolbar>
+  <div class="container lg:mx-auto md:mx-auto min-w-0">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<mat-progress-spinner
+*ngIf="loading"
+  class="center"
+  diameter="80"
+  [mode]="'indeterminate'"
+  color="primary"
+  strokeWidth="6"
+  value="100"
+>
+</mat-progress-spinner>
